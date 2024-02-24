@@ -1,0 +1,1012 @@
+{
+	"info": {
+		"_postman_id": "c7abdaac-98af-4f47-acae-c94e6984c7d5",
+		"name": "server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17955730",
+		"_collection_link": "https://www.postman.com/pakhalepratik/workspace/pekanu/collection/17955730-c7abdaac-98af-4f47-acae-c94e6984c7d5?action=share&source=collection_link&creator=17955730"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Administrator\",\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/user/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/user/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/user/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get me",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/user/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update admin password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/user/admin/password",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"admin",
+								"password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "log",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"test_postman\",\r\n    \"context\": \"this is a testing request from postman\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/log",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"log"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "download logs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/log/download?username=mandar&minTimestamp=2024-02-17&format=csv",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"log",
+								"download"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "mandar"
+								},
+								{
+									"key": "minTimestamp",
+									"value": "2024-02-17"
+								},
+								{
+									"key": "format",
+									"value": "csv"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "course",
+			"item": [
+				{
+					"name": "get all courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/course",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"course"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get course by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/course/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"course",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65ae708d3ca3a6f15bf8a92b"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create course",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "ReactJS",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Learn the modern JavaScript library",
+									"type": "text"
+								},
+								{
+									"key": "thumbnail",
+									"type": "file",
+									"src": "C:\\Users\\Pratik\\OneDrive\\Desktop\\demo.png"
+								},
+								{
+									"key": "learnings",
+									"value": "Statemanaggement and routing.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/course",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"course"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update course",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "ReactJS",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Learn the modern JavaScript library",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "thumbnail",
+									"type": "file",
+									"src": "/C:/Users/Pratik/OneDrive/Desktop/demo.png",
+									"disabled": true
+								},
+								{
+									"key": "learnings",
+									"value": "Statemanaggement and routing.",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/course/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"course",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65ae7adc4adc584a7ac02163"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete course",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/course/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"course",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65ae708d3ca3a6f15bf8a92b"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add module | video",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "type",
+									"value": "video",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Introduction",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "More on the course",
+									"type": "text"
+								},
+								{
+									"key": "module",
+									"type": "file",
+									"src": "/C:/Users/Pratik/OneDrive/Desktop/demo.mp4"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/course/:id/module",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"course",
+								":id",
+								"module"
+							],
+							"variable": [
+								{
+									"id": 0,
+									"key": "id",
+									"value": "65ae72915c4be89be865c4c7",
+									"type": "string"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update module | video",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "type",
+									"value": "video",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "Introduction to MeatJs",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "More on the course",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "module",
+									"type": "file",
+									"src": "/C:/Users/Pratik/OneDrive/Desktop/demo.mp4",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/course/:id/module/:moduleId",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"course",
+								":id",
+								"module",
+								":moduleId"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65ae7adc4adc584a7ac02163",
+									"type": "string"
+								},
+								{
+									"key": "moduleId",
+									"value": "65cd15d1c8763f60e72a166e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add module | notes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "type",
+									"value": "notes",
+									"type": "text"
+								},
+								{
+									"key": "module",
+									"type": "file",
+									"src": "/C:/Users/Pratik/OneDrive/Desktop/demo.pdf"
+								},
+								{
+									"key": "title",
+									"value": "some title",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/course/:id/module",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"course",
+								":id",
+								"module"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65ae7adc4adc584a7ac02163",
+									"type": "string"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update module | notes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "type",
+									"value": "notes",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "module",
+									"type": "file",
+									"src": "/C:/Users/Pratik/OneDrive/Desktop/demo.pdf",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "some title lmaooo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/course/:id/module/:moduleId",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"course",
+								":id",
+								"module",
+								":moduleId"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65ae7adc4adc584a7ac02163",
+									"type": "string"
+								},
+								{
+									"key": "moduleId",
+									"value": "65cd18135ba55263939062af"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add module | quiz",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"quiz\",\r\n    \"title\": \"Some BS Quiz\",\r\n    \"quiz\": {\r\n        \"questions\": [\r\n            {\r\n                \"question\": \"What aare hooks?\",\r\n                \"options\": [\r\n                    \"a\", \"b\", \"c\", \"d\"\r\n                ],\r\n                \"answer\": \"a\",\r\n                \"explanation\" :\"no explanation\"\r\n            },{\r\n                \"question\": \"What aare hooks?\",\r\n                \"options\": [\r\n                    \"a\", \"b\", \"c\", \"d\"\r\n                ],\r\n                \"answer\": \"a\",\r\n                \"explanation\" :\"no explanation\"\r\n            }\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/course/:id/module",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"course",
+								":id",
+								"module"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65ae7adc4adc584a7ac02163",
+									"type": "string"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update module | quiz",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"quiz\",\r\n    \"quiz\": {\r\n        \"questions\": [\r\n            {\r\n                \"question\": \"What aare hooks?\",\r\n                \"options\": [\r\n                    \"g\", \"h\", \"b\", \"a\"\r\n                ],\r\n                \"answer\": \"a\",\r\n                \"explanation\" :\"no explanation\"\r\n            },{\r\n                \"question\": \"What aare hooks?\",\r\n                \"options\": [\r\n                    \"a\", \"b\", \"c\", \"d\"\r\n                ],\r\n                \"answer\": \"a\",\r\n                \"explanation\" :\"no explanation\"\r\n            }\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/course/:id/module/:moduleId",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"course",
+								":id",
+								"module",
+								":moduleId"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65ae7adc4adc584a7ac02163",
+									"type": "string"
+								},
+								{
+									"key": "moduleId",
+									"value": "65cd186d5ba55263939062c7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete module",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/course/:id/module/:moduleId",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"course",
+								":id",
+								"module",
+								":moduleId"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65ae72915c4be89be865c4c7"
+								},
+								{
+									"key": "moduleId",
+									"value": "65ae7b05cf5b2d0488c475f9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add quiz to a video module",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n        \"questions\": [\r\n            {\r\n                \"question\": \"What aare hooks?\",\r\n                \"options\": [\r\n                    \"a\", \"b\", \"c\", \"d\"\r\n                ],\r\n                \"answer\": \"a\",\r\n                \"explanation\" :\"no explanation\"\r\n            },{\r\n                \"question\": \"What aare hooks?\",\r\n                \"options\": [\r\n                    \"a\", \"b\", \"c\", \"d\"\r\n                ],\r\n                \"answer\": \"a\",\r\n                \"explanation\" :\"no explanation\"\r\n            }\r\n        ],\r\n        \"time\" : \"00:00:00\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/course/:id/module/:moduleId/quiz",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"course",
+								":id",
+								"module",
+								":moduleId",
+								"quiz"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65ae7adc4adc584a7ac02163",
+									"type": "string"
+								},
+								{
+									"key": "moduleId",
+									"value": "65cd15d1c8763f60e72a166e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete quiz from a video module",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/course/:id/module/:moduleId/quiz/:quizId",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"course",
+								":id",
+								"module",
+								":moduleId",
+								"quiz",
+								":quizId"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65ae72915c4be89be865c4c7",
+									"type": "string"
+								},
+								{
+									"key": "moduleId",
+									"value": "65ae8240fab8af416010106f"
+								},
+								{
+									"key": "quizId",
+									"value": "65aea8bbbaf7a6b9355f9023"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user course",
+			"item": [
+				{
+					"name": "register for a course",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/course/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"course",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65ae72915c4be89be865c4c7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all registered course details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/course",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"course"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get registered course details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/course/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"course",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65ae72915c4be89be865c4c7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mark a course as complete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/course/:id/complete",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"course",
+								":id",
+								"complete"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65ae72915c4be89be865c4c7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update recent module",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"moduleId\": \"65ae8240fab8af416010106f\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/user/course/:id/recent",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"course",
+								":id",
+								"recent"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65ae72915c4be89be865c4c7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add a course progress",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"module\": \"65ae8240fab8af416010106f\",\r\n    \"quizzes\": [\r\n        {\r\n            \"quiz\": \"\",\r\n            \"score\": 100\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/user/course/:id/progress",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"course",
+								":id",
+								"progress"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65ae72915c4be89be865c4c7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get quiz by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/quiz/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"quiz",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65cd18d15ba55263939062d8"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:5000",
+			"type": "string"
+		}
+	]
+}

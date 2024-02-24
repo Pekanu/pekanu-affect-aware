@@ -1,0 +1,17 @@
+# Ignore images
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.svg
+
+# Ignore PDFs
+*.pdf
+
+# Ignore videos
+*.mp4
+*.avi
+*.mkv
+*.mov
+*.wmv
