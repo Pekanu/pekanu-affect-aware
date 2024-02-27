@@ -1,6 +1,7 @@
 # Run Locally
 
 1. Start the server
+
 ```bash
 cd server
 npm install
@@ -8,6 +9,7 @@ npm run dev
 ```
 
 2. Start the client
+
 ```bash
 cd client
 npm install
@@ -15,14 +17,15 @@ npm run dev
 ```
 
 3. Start flask server
+
 ```bash
 cd ml
-python -m venv venv
+python -m venv venv  # use python 3.8
 source venv/bin/activate
 pip install -r requirements.txt
 python app.py
 ```
- 
+
 4. Have MongoDB running on your local machine
 
 5. Open your browser and go to `http://localhost:5173`
@@ -46,7 +49,7 @@ docker-compose -f docker-compose.dev.yml up
 # LOG TYPES
 
 ```
-LOGIN: "login", 
+LOGIN: "login",
 OPENED_COURSE: "opened_course",
 CLICK: "click",
 OPENED_MODULE: "opened_module",

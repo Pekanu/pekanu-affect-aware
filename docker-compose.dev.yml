@@ -5,35 +5,37 @@ services:
     build:
       context: ./ml
     ports:
-      - "4000:4000"
+      - '4000:4000'
 
   client:
     build:
       context: ./client
+      args:
+        - VITE_SERVER_ENDPOINT=http://localhost:5000
+        - VITE_ML_ENDPOINT=http://localhost:4000
     ports:
-      - "3000:3000"
-    environment:
-      - VITE_SERVER_ENDPOINT=/api
-      - VITE_ML_ENDPOINT=/ml
+      - '3000:3000'
 
   server:
     build:
       context: ./server
     ports:
-      - "5000:5000"
+      - '5000:5000'
     volumes:
       - server_data:/app/public
     environment:
       - PORT=5000
-      - MONGODB_URI=mongodb://mongo:27018/pekanu
+      - MONGODB_URI=mongodb://mongo:27017/pekanu
       - JWT_SECRET=iitb_affect_aware
       - JWT_EXPIRY=7d
       - ADMIN_USERNAME=admin
+    links:
+      - mongo
 
   mongo:
     image: mongo
     ports:
-      - "27018:27017"
+      - '27018:27017'
     volumes:
       - mongodb_data:/data/db
 
