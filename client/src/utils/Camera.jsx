@@ -1,5 +1,5 @@
-import { useState, useContext, useEffect } from "react";
-import { BotContext } from "../store/Bot";
+import { useState, useContext, useEffect } from 'react';
+import { BotContext } from '../store/Bot';
 
 const WebcamCapture = () => {
   const [newArray, setNewArray] = useState([]);
@@ -8,9 +8,9 @@ const WebcamCapture = () => {
   const sendDataToServer = async () => {
     try {
       const requestOptions = {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ newArray }),
       };
@@ -22,7 +22,7 @@ const WebcamCapture = () => {
 
       setNewArray([]);
       const response = await fetch(
-        import.meta.env.VITE_ML_ENDPOINT + "/predict",
+        import.meta.env.VITE_ML_ENDPOINT + '/ml/predict',
         requestOptions
       );
 
@@ -30,27 +30,27 @@ const WebcamCapture = () => {
         handleErrorResponse(response);
       } else {
         const responseData = await response.json();
-        const userState = responseData["prediction"];
+        const userState = responseData['prediction'];
         setState(userState);
       }
     } catch (error) {
-      console.error("Error sending data to server:", error);
+      console.error('Error sending data to server:', error);
     }
   };
 
-  const handleErrorResponse = async (response) => {
+  const handleErrorResponse = async response => {
     if (response.status === 500) {
-      console.error("Internal Server Error:", response.statusText);
+      console.error('Internal Server Error:', response.statusText);
     } else {
       console.error(
-        "Server returned an error:",
+        'Server returned an error:',
         response.status,
         response.statusText
       );
     }
 
     const responseData = await response.json().catch(() => null);
-    console.error("Response data:", responseData);
+    console.error('Response data:', responseData);
   };
 
   useEffect(() => {
@@ -63,25 +63,25 @@ const WebcamCapture = () => {
         const imageCapture = new ImageCapture(videoTrack);
 
         const bmp = await imageCapture.grabFrame();
-        const canvas = document.createElement("canvas");
+        const canvas = document.createElement('canvas');
         canvas.width = bmp.width;
         canvas.height = bmp.height;
-        const ctx = canvas.getContext("bitmaprenderer");
+        const ctx = canvas.getContext('bitmaprenderer');
         ctx.transferFromImageBitmap(bmp);
-        const blob = await new Promise((res) => canvas.toBlob(res));
+        const blob = await new Promise(res => canvas.toBlob(res));
 
         const reader = new FileReader();
         reader.readAsDataURL(blob);
         reader.onloadend = function () {
           const base64data = reader.result;
-          setNewArray((prevArray) => [...prevArray, base64data]);
+          setNewArray(prevArray => [...prevArray, base64data]);
 
           if (newArray.length >= 10) {
             sendDataToServer();
           }
         };
       } catch (error) {
-        console.error("Error capturing frame:", error);
+        console.error('Error capturing frame:', error);
       }
     }, 100);
 

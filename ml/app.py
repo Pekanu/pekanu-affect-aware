@@ -21,12 +21,12 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route('/')
+@app.route('/ml')
 def hello():
     return "Welcome to IITB Affect Aware Tutor System"
 
 
-@app.route('/video', methods=['GET', 'POST'])
+@app.route('/ml/video', methods=['GET', 'POST'])
 def video():
     if request.method == 'POST':
         file = request.files['file']
@@ -40,7 +40,7 @@ def video():
         return "Video Saved"
 
 
-@app.route('/predict', methods=['GET', 'POST'])
+@app.route('/ml/predict', methods=['GET', 'POST'])
 def predict():
     classifier = cv2.CascadeClassifier(
         cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml')
