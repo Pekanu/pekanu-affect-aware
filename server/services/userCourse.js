@@ -48,8 +48,12 @@ class UserCourseService {
     });
     if (error) throw new Error(error);
 
-    const newUserCourse = new UserCourse(value);
-    return await newUserCourse.save();
+    // Use findOneAndUpdate with upsert option
+    return await UserCourse.findOneAndUpdate(
+      { course: courseId, user: userId },
+      { $setOnInsert: value },
+      { upsert: true, new: true }
+    );
   }
 
   async userCourseCompleted(courseId, userId) {

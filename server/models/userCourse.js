@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const progressSchema = new Schema(
   {
-    module: { type: Schema.Types.ObjectId, ref: 'Module', unique: true },
+    module: { type: Schema.Types.ObjectId, ref: 'Module' },
     quizzes: [
       {
         quiz: { type: Schema.Types.ObjectId, ref: 'Quiz' },
