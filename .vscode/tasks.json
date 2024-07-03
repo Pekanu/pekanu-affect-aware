@@ -35,7 +35,7 @@
     {
       "label": "ml",
       "type": "shell",
-      "command": "cd ml && python app.py",
+      "command": "cd ml && source venv/bin/activate && python app.py",
       "isBackground": true,
       "problemMatcher": []
     }
