@@ -1,24 +1,35 @@
 from flask import Flask, request
 from flask_cors import CORS
 import numpy as np
-import torch
-import torch
-import torch.nn.functional as F
-import cv2
-import albumentations as A
-from albumentations.pytorch import ToTensorV2
-from linformer import Linformer
-from vit_pytorch.efficient import ViT
-from torch.utils.data import DataLoader
-import os
-import calendar
-import time
-from urllib.request import urlopen
 from PIL import Image
-
+from io import BytesIO
+import base64
+from hsemotion_onnx.facial_emotions import HSEmotionRecognizer
+from mtcnn import MTCNN
 
 app = Flask(__name__)
 CORS(app)
+
+# Initialize MTCNN for face detection
+face_detector = MTCNN()
+
+# Initialize HSEmotionRecognizer for emotion recognition
+emotion_recognizer = HSEmotionRecognizer(model_name='enet_b0_8_best_vgaf')
+
+
+def map_valence_arousal_to_emotion(valence, arousal):
+    if valence < 0:
+        if arousal > 0:
+            return "frustration"
+        else:
+            return "boredom"
+    else:
+        if arousal > 0:
+            return "delight"
+        elif arousal < 0:
+            return "confusion"
+        else:
+            return "engagement"
 
 
 @app.route('/ml')
@@ -26,121 +37,53 @@ def hello():
     return "Welcome to IITB Affect Aware Tutor System"
 
 
-@app.route('/ml/video', methods=['GET', 'POST'])
-def video():
-    if request.method == 'POST':
-        file = request.files['file']
-        temp_name = os.path.splitext(file.filename)
-
-        # add timestamp to filename
-        filename = temp_name[0] + \
-            str(calendar.timegm(time.gmtime())) + temp_name[1]
-        file.save(filename)
-
-        return "Video Saved"
-
-
-@app.route('/ml/predict', methods=['GET', 'POST'])
+@app.route('/ml/predict', methods=['POST'])
 def predict():
-    classifier = cv2.CascadeClassifier(
-        cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml')
-
-    if(request.method == "POST"):
+    if request.method == "POST":
         img_array = request.get_json()['newArray']
 
-        # print(request.form.listvalues)
-        # print(len(img_array))
-        test_images = []
+        predictions = []
         no_face_count = 0
 
-        for url in img_array:
-            img = Image.open(urlopen(url))
-            img = np.array(img)
-            faces = classifier.detectMultiScale(img)
-            if(len(faces) == 0):
+        for img_base64 in img_array:
+            # Decode base64 image
+            img_data = base64.b64decode(img_base64.split(',')[1])
+            img = Image.open(BytesIO(img_data))
+            img_np = np.array(img)
+
+            # Detect faces using MTCNN
+            faces = face_detector.detect_faces(img_np)
+
+            if len(faces) == 0:
                 no_face_count += 1
+                continue
 
-            test_images.append(img)
+            # Get the first detected face
+            x, y, width, height = faces[0]['box']
+            face = img.crop((x, y, x+width, y+height))
 
-        if(no_face_count >= 5):
+            # Predict emotion using HSEmotionRecognizer
+            emotion, scores = emotion_recognizer.predict_emotions(face, logits=True)
+
+            # Extract valence and arousal scores
+            valence = scores[0]  # Assuming valence is the first score
+            arousal = scores[1]  # Assuming arousal is the second score
+
+            # Map valence and arousal to learning-centered emotion
+            learning_emotion = map_valence_arousal_to_emotion(valence, arousal)
+            predictions.append(learning_emotion)
+
+        if no_face_count >= 5:
             return {"prediction": "not engaged"}
 
-        main_transform = A.Compose(
-            [
-                A.Resize(224, 224),
-                ToTensorV2(),
-            ])
-
-        # file.save(filename)
-        # test_images = video_to_image(filename)
-
-        test_dataset = DaiseeDataset(
-            test_images, augmentations=main_transform)
-
-        batch_size = len(test_images)
-        test_loader = DataLoader(
-            test_dataset, batch_size=batch_size, shuffle=False)
-
-        if torch.cuda.is_available():
-            device = "cuda"
+        # Get the most common learning-centered emotion
+        if predictions:
+            final_prediction = max(set(predictions), key=predictions.count)
         else:
-            device = "cpu"
+            final_prediction = "unknown"
 
-        # Line transformer
-        efficient_transformer = Linformer(
-            dim=128,
-            seq_len=49+1,  # 7x7 patches + 1 cls-token
-            depth=12,
-            heads=8,
-            k=64
-        ).to(device)
-
-        # Visual transformer
-        model = ViT(
-            dim=128,
-            image_size=224,
-            patch_size=32,
-            num_classes=4,
-            transformer=efficient_transformer,
-            channels=3,
-        ).to(device)
-
-        model.load_state_dict(torch.load(
-            'daisee_vit_model_weights.pth', map_location=device))
-
-        classes = {0: 'boredom', 1: 'confusion',
-                   2: 'engagement', 3: 'frustration'}
-
-        model.eval()
-        for data in test_loader:
-            data = data.type(torch.float)
-            predict_values = model(data.to(device))
-            preds = F.softmax(predict_values, dim=1)
-            preds = torch.argmax(preds, dim=1)
-            preds = preds.cpu().numpy()
-            final_pred = np.bincount(preds).argmax()
-            if final_pred in [0, 1, 2, 3]:
-                prediction = classes[final_pred]
-            else:
-                prediction = "not found"
-
-        return {"prediction": prediction}
-
-
-class DaiseeDataset(torch.utils.data.Dataset):
-    def __init__(self, img_list, augmentations):
-        super(DaiseeDataset, self).__init__()
-        self.img_list = img_list
-        self.augmentations = augmentations
-
-    def __len__(self):
-        return len(self.img_list)
-
-    def __getitem__(self, idx):
-        img = self.img_list[idx]
-        return self.augmentations(image=img)['image']
+        return {"prediction": final_prediction}
 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=4000, debug=True)
-
